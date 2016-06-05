@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HW2" Class="HW2LINQ2SQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\HW2.mdf;Integrated Security=True" SettingsObjectName="dotNET_HW2.Properties.Settings" SettingsPropertyName="HW2_DataBase" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TblCourseLecturer" Member="TblCourseLecturers">
+    <Type Name="TblCourseLecturer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idLecturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCourse" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TblCourse_TblCourseLecturer" Member="TblCourse" ThisKey="idCourse" OtherKey="Id" Type="TblCourse" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TblLecturer_TblCourseLecturer" Member="TblLecturer" ThisKey="idLecturer" OtherKey="Id" Type="TblLecturer" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblStudentCourse" Member="TblStudentCourses">
+    <Type Name="TblStudentCourse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idStudent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCourse" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TblCourse_TblStudentCourse" Member="TblCourse" ThisKey="idCourse" OtherKey="Id" Type="TblCourse" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TblStudent_TblStudentCourse" Member="TblStudent" ThisKey="idStudent" OtherKey="Id" Type="TblStudent" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblCourses" Member="TblCourses">
+    <Type Name="TblCourse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CourseName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TblCourse_TblCourseLecturer" Member="TblCourseLecturers" ThisKey="Id" OtherKey="idCourse" Type="TblCourseLecturer" />
+      <Association Name="TblCourse_TblStudentCourse" Member="TblStudentCourses" ThisKey="Id" OtherKey="idCourse" Type="TblStudentCourse" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblLecturers" Member="TblLecturers">
+    <Type Name="TblLecturer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="TblLecturer_TblCourseLecturer" Member="TblCourseLecturers" ThisKey="Id" OtherKey="idLecturer" Type="TblCourseLecturer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblStudents" Member="TblStudents">
+    <Type Name="TblStudent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="TblStudent_TblStudentCourse" Member="TblStudentCourses" ThisKey="Id" OtherKey="idStudent" Type="TblStudentCourse" />
+    </Type>
+  </Table>
+</Database>
